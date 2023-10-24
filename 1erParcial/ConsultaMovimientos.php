@@ -192,7 +192,6 @@
     }
 
     #f- El listado de todas las operaciones (depósitos y retiros) por usuario
-
     function consultarOperacionesPorUsuario(){  
         $nroDocumento = null;
         if (!isset($_GET["nroDocumento"])) {

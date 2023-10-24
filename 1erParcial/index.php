@@ -41,23 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         switch ($_GET['consultarDepositos']) {
             case 'totalDepositado':
-                // include_once "ConsultaMovimientos.php";
                 ConsultarTotalDepositado();
                 break;
             case 'porUsuario':
                 consultarDepositosPorUsuario();
-                // include_once "ConsultaMovimientos.php";
                 break;
             case 'entreFechas':
                 consultarDepositosEntreFechas();
-                // include_once "ConsultaMovimientos.php";
                 break;
             case 'tipoDeCuenta':
-                // include_once "ConsultaMovimientos.php";
                 consultarDepositosPorTipoCuenta();
                 break;
             case 'moneda':
-                // include_once "ConsultaMovimientos.php";
                 consultarDepositosPorMoneda();
                 break;
             case 'operacionesUsuario':

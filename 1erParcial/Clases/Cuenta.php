@@ -92,7 +92,7 @@ class Cuenta implements JsonSerializable{
         $tipoCAUSD= "CAU" . "$" . "S";
         $tipoCCUSS= "CCU" . "$" . "S";
 
-        if(/*$tipo == "CC" || $tipo == "CH" ||*/ $tipo == "CA$" || $tipo == $tipoCAUSD || $tipo == "CC$" || $tipo == $tipoCCUSS || (!empty($tipo) && !trim($tipo) === "")) {
+        if(/*$tipo == "CC" || $tipo == "CA" ||*/ $tipo == "CA$" || $tipo == $tipoCAUSD || $tipo == "CC$" || $tipo == $tipoCCUSS || (!empty($tipo) && !trim($tipo) === "")) {
             $retorno = true;
         }
 
