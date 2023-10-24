@@ -1,6 +1,4 @@
 <?php
-
-// include_once "Cuenta.php";
 /*1-
 A- index.php: Recibe todas las peticiones que realiza el cliente (utilizaremos Postman), y administra a qué archivo se debe incluir.    */
 

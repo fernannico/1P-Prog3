@@ -1,5 +1,7 @@
 <?php
-    include_once "Cuenta.php";
+    include_once "./Clases/Cuenta.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
+
     echo "CONSULTAR CUENTA: <BR>";
 
     // ConsultarCuenta.php: (por POST) Se ingresa Tipo y Nro. de Cuenta, si coincide con
@@ -21,14 +23,14 @@
         if($tipoCuenta !== null){
             // echo 'entro';
 
-            $cuentaJson = Cuenta::ConsultarCuenta($tipoCuenta,$nroCuenta,"banco.json");
+            $cuentaJson = Cuenta::ConsultarCuenta($tipoCuenta,$nroCuenta,$rutaBancoJson);
             if($cuentaJson !== null){
                 echo "<br>Moneda: " . $cuentaJson->GetMoneda();
                 echo "<br>Saldo: " . $cuentaJson->GetSaldo();
                 // echo "<br>" . $cuentaJson->__toString();
             }else{
                 $banderaCuenta = false;
-                $cuentasCargadas = Cuenta::JsonDeserialize("banco.json");
+                $cuentasCargadas = Cuenta::JsonDeserialize($rutaBancoJson);
 
                 foreach($cuentasCargadas as $cuentaCargada){
         

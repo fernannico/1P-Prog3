@@ -1,9 +1,13 @@
 <?php
-    include_once("Deposito.php");
-    include_once("Retiro.php");
-    include_once("Cuenta.php");
-    include_once("Ajuste.php");
-
+    include_once "./Clases/Ajuste.php";
+    include_once "./Clases/Retiro.php";
+    include_once "./Clases/Cuenta.php";
+    include_once "./Clases/Deposito.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
+    $rutaDespositosJson = './ArchivosJson/depositos.json';
+    $rutaRetirosJson = './ArchivosJson/retiro.json';
+    $rutaAjustesJson = './ArchivosJson/ajustes.json';
+    
     $tipoOperacion = null;
     $idOperacion = null;
     $monto = null;
@@ -25,8 +29,8 @@
 
         $idOperacion = $_POST["IdOperacion"];
         
-        $depositoAjustable = Deposito::ObtenerDepositoPorId($idOperacion,"depositos.json");
-        $retiroAjustable = Retiro::ObtenerRetiroPorId($idOperacion,"retiro.json");
+        $depositoAjustable = Deposito::ObtenerDepositoPorId($idOperacion,$rutaDespositosJson);
+        $retiroAjustable = Retiro::ObtenerRetiroPorId($idOperacion,$rutaRetirosJson);
 
         if($depositoAjustable !== null){
             $tipoOperacion = "deposito";
@@ -38,7 +42,7 @@
 
         //verificar si la operacion ya fue ajustada
         $banderaYaAjustado = false;
-        $ajustes = Ajuste::JsonDeserialize("ajustes.json");
+        $ajustes = Ajuste::JsonDeserialize($rutaAjustesJson);
         foreach($ajustes as $ajuste){
             if($depositoAjustable !== null && $ajuste->GetIdOperacion() == $depositoAjustable->GetId()){
                 $banderaYaAjustado = true;
@@ -59,19 +63,19 @@
                     if($motivo == 'saldo positivo'){
                         // ej Si el deposito se registró como de 5000 pero realmente deposité 10k
                         // ajusteDeposito-> depositar en la cuenta de 0 a infinito
-                        if(Ajuste::AjustarSaldo($depositoAjustable,$monto,$motivo,"banco.json")) {
+                        if(Ajuste::AjustarSaldo($depositoAjustable,$monto,$motivo,$rutaBancoJson)) {
                             echo "<br>ajuste guardado";
                         }else{
                             echo "<br>ajuste no guardado";
                         }
                     }else if($motivo == 'saldo negativo'){
                         //		Si el deposito se registró como que fue de 10000 pero realmente eran 1000: ajusteDeposito-> extraer de la cuenta de 0 al balance de la cta
-                        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($depositoAjustable->GetNroCuenta(),"banco.json");
+                        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($depositoAjustable->GetNroCuenta(),$rutaBancoJson);
                         if($cuentaJson !== null && $monto > $cuentaJson->GetSaldo()){
                             echo '<br><br>El ajuste negativo no puede ser mayor al balance de la cuenta: <br>balance actual: $'. $cuentaJson->GetSaldo();
                         }else{
                             $monto = $monto * -1;
-                            if(Ajuste::AjustarSaldo($depositoAjustable,$monto,$motivo,"banco.json")) {
+                            if(Ajuste::AjustarSaldo($depositoAjustable,$monto,$motivo,$rutaBancoJson)) {
                                 echo "<br>ajuste guardado";
                             }else{
                                 echo "<br>ajuste no guardado";
@@ -92,7 +96,7 @@
                             echo '<br>El importe retirado en el retiro ID:'.$retiroAjustable->GetId()."fue de $".$retiroAjustable->GetImporteRetirado().", el ajuste positivo tiene que ser un monto de 0 a " . $retiroAjustable->GetImporteRetirado();
                         }else{
                             // ej si se registró un retiro de 5000 pero no salio nada o realmente dio 4k , pero no mas xq sino seria negativo
-                            if(Ajuste::AjustarSaldo($retiroAjustable,$monto,$motivo,"banco.json")) {
+                            if(Ajuste::AjustarSaldo($retiroAjustable,$monto,$motivo,$rutaBancoJson)) {
                                 echo "<br>ajuste guardado";
                             }else{
                                 echo "<br>ajuste no guardado";
@@ -100,12 +104,12 @@
                         }
                     }else if($motivo == 'saldo negativo'){
                         //ej si el retiro se registró como que fue de 500 pero realmente fueron 5000: retirar de la cuenta de 0 al balance (no podria haber retirado mas de lo que tenia en la cuenta)
-                        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($retiroAjustable->GetNroCuenta(),"banco.json");
+                        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($retiroAjustable->GetNroCuenta(),$rutaBancoJson);
                         if($cuentaJson !== null && $monto > $cuentaJson->GetSaldo()){
                             echo '<br><br>El ajuste negativo no puede ser mayor al balance de la cuenta: <br>balance actual: $'. $cuentaJson->GetSaldo();
                         }else{
                             $monto = $monto * -1;
-                            if(Ajuste::AjustarSaldo($retiroAjustable,$monto,$motivo,"banco.json")) {
+                            if(Ajuste::AjustarSaldo($retiroAjustable,$monto,$motivo,$rutaBancoJson)) {
                                 echo "<br>ajuste guardado";
                             }else{
                                 echo "<br>ajuste no guardado";

@@ -1,12 +1,13 @@
 <?php
     echo "RETIRO CUENTA";
-    include_once("Cuenta.php");
-    include_once("Deposito.php");
-    include_once("Retiro.php");
-    
+    include_once "./Clases/Cuenta.php";
+    include_once "./Clases/Deposito.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
+    $rutaRetirosJson = './ArchivosJson/retiro.json';
+
     //6- RetiroCuenta.php: (por POST) se recibe el Tipo de Cuenta, Nro de Cuenta y Moneda; ademas el importe a retirar
-        //Si la cuenta existe en banco.json, se decrementa el saldo existente según el importe extraído y se registra en el archivo retiro.json la operación con los datos de la cuenta y el retiro (fecha, monto) e id autoincremental.
-        // Si la cuenta no existe o el saldo es inferior al monto a retirar, informar el tipo de error.
+    //Si la cuenta existe en banco.json, se decrementa el saldo existente según el importe extraído y se registra en el archivo retiro.json la operación con los datos de la cuenta y el retiro (fecha, monto) e id autoincremental.
+    // Si la cuenta no existe o el saldo es inferior al monto a retirar, informar el tipo de error.
 
     if(!isset($_POST["tipoCuenta"]) || !isset($_POST["nroCuenta"]) || !isset($_POST["moneda"]) || !isset($_POST["importe"])){
         echo "<br>faltan parametros";
@@ -36,15 +37,15 @@
             // echo 'entra' . $moneda . $tipoCuenta;
             $cuentaJson = null;
 
-            $cuentaJson = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta,$nroCuenta,'banco.json');
+            $cuentaJson = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta,$nroCuenta,$rutaBancoJson);
             if($cuentaJson !== null){
                 echo "<br>CUENTA:<br>" . $cuentaJson->__toString() . "<br>". "<br>";
                 if($cuentaJson->GetSaldo() >= $importeRetiro){
                     // echo "<br>importe es menor";
                     $importeRetiro = $importeRetiro * -1;
-                    if($cuentaJson->ActualizarSaldoCuentaJson($importeRetiro,"banco.json")){
+                    if($cuentaJson->ActualizarSaldoCuentaJson($importeRetiro,$rutaBancoJson)){
                         // echo "<br>actualiza";
-                        $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta,$nroCuenta,"banco.json");
+                        $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta,$nroCuenta,$rutaBancoJson);
                         // var_dump($cuentaJson->GetSaldo());
                         if($cuentaJsonActualizada !== null){
                             echo "<br>RETIRADO!<br>Cuenta tras retiro:<br>" . $cuentaJsonActualizada->__toString();
@@ -53,7 +54,7 @@
 
                             echo "<br><br>DATOS DEL RETIRO:<br>" . $retiroNuevo->__toString();
 
-                            if(Retiro::GuardarRetiroJSON($retiroNuevo,'retiro.json')){
+                            if(Retiro::GuardarRetiroJSON($retiroNuevo,$rutaRetirosJson)){
                                 echo "<br><br>Gracias vuelva pronto";
                             }else{
                                 echo "retiro NO guardado en json";

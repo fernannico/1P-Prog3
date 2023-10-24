@@ -92,7 +92,7 @@
                 if($cuentaJson->ActualizarSaldoCuentaJson($monto,$rutaBancoJson)){
                     echo "<br><br>AJUSTE REALIZADO<br>saldo de la cuenta " .$cuentaJson->GetNroCuenta(). " actualizado";
                     $nuevoAjuste = new Ajuste(rand(1,10000),$operacionAjustable->GetId(),$cuentaJson->GetNroCuenta(),$monto, $motivo);
-                    if(Ajuste::GuardarAjusteJSON($nuevoAjuste,'ajustes.json')){
+                    if(Ajuste::GuardarAjusteJSON($nuevoAjuste,'./ArchivosJson/ajustes.json')){
                         echo "<br><br> AJUSTE:<br>" . $nuevoAjuste->__toString();
                         $retorno = true;
                     }

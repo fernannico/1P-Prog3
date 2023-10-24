@@ -97,5 +97,14 @@
         "moneda": "U$S",
         "deposito": "1000",
         "saldo": 2500
+    },
+    {
+        "id": 1997,
+        "fecha": "24-10-2023",
+        "nroCuenta": "743081",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "1000",
+        "saldo": 3500
     }
 ]

@@ -6,25 +6,18 @@
         private $_IdRetiro;
         private $_fecha;
         private $_nroCuenta;
-        // private $_nombre;
-        // private $_apellido;
-        // private $_nroDocumento;
         private $_tipoCuenta;
         private $_moneda;
         private $_saldo;
         private $_importeRetirado;
     
-        public function __construct($IdRetiro,/*$cuenta,*/$nroCuenta,$tipoCuenta,$moneda,$saldo,$importeRetirado){
+        public function __construct($IdRetiro,$nroCuenta,$tipoCuenta,$moneda,$saldo,$importeRetirado){
             $this->_IdRetiro = $IdRetiro;
             $this->_fecha = date("d-m-Y");
             $this->_nroCuenta = $nroCuenta;
             $this->_tipoCuenta = $tipoCuenta;
             $this->_moneda = $moneda;
             $this->_saldo = $saldo;
-            // $this->_nroCuenta = $cuenta->GetNroCuenta();
-            // $this->_tipoCuenta = $cuenta->GetTipoCuenta();
-            // $this->_moneda = $cuenta->GetMoneda();
-            // $this->_saldo = $cuenta->GetSaldo();
             $this->_importeRetirado = $importeRetirado;
         }
         public function __toString(){

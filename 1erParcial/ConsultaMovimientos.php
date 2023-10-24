@@ -1,8 +1,8 @@
 <?php
-    include_once("Deposito.php");
-    include_once("Retiro.php");
-    include_once("Cuenta.php");
-    
+    include_once "./Clases/Retiro.php";
+    include_once "./Clases/Cuenta.php";
+    include_once "./Clases/Deposito.php";
+
     //4- ConsultaMovimientos.php: (por GET)
     // Datos a consultar:
     
@@ -36,7 +36,7 @@
                 echo "CONSULTA MOVIMIENTOS =>";
                 echo " fecha: " . $fecha;
     
-                $depositosJson = Deposito::JsonDeserialize('depositos.json');
+                $depositosJson = Deposito::JsonDeserialize('./ArchivosJson/depositos.json');
     
                 $totalDepositado= 0;
                 
@@ -70,8 +70,8 @@
             
             if($usuarioParametro !== null) {
                 // echo $usuarioParametro;
-                $cuentasUsuario = Cuenta::ObtenerCuentasPorDni($usuarioParametro,"banco.json");
-                $depositosJson = Deposito::JsonDeserialize("depositos.json");
+                $cuentasUsuario = Cuenta::ObtenerCuentasPorDni($usuarioParametro,'./ArchivosJson/banco.json');
+                $depositosJson = Deposito::JsonDeserialize('./ArchivosJson/depositos.json');
 
                 if($cuentasUsuario !== null && !empty($cuentasUsuario)) {
                     if($depositosJson !== null && !empty($depositosJson)) {
@@ -114,7 +114,7 @@
             
             if($fechaFin !== null && $fechaInicio !== null) {
                 // echo 'entra';
-                $depositosEntreFechas = Deposito::ObtenerDepositosEntreFechas($fechaInicio,$fechaFin,"depositos.json");
+                $depositosEntreFechas = Deposito::ObtenerDepositosEntreFechas($fechaInicio,$fechaFin,'./ArchivosJson/depositos.json');
                 $depositos = Deposito::OrdenarDepositosPorNumeroCuenta($depositosEntreFechas);
                 if($depositos !== null && !empty($depositos)){
                     foreach($depositos as $deposito) {
@@ -143,7 +143,7 @@
             
             if($tipoCuenta !== null) {
                 // echo $tipoCuenta;
-                $depositosTipoCuenta = Deposito::ObtenerDepositosPorTipoCuenta($tipoCuenta,"depositos.json");
+                $depositosTipoCuenta = Deposito::ObtenerDepositosPorTipoCuenta($tipoCuenta,'./ArchivosJson/depositos.json');
                 // var_dump($depositosTipoCuenta);
                 if($depositosTipoCuenta !== null && !empty($depositosTipoCuenta)) {
                     // echo "entra";
@@ -175,7 +175,7 @@
             
             if($moneda !== null) {
                 // echo $moneda;
-                $depositosMoneda = Deposito::ObtenerDepositosPorMoneda($moneda,"depositos.json");
+                $depositosMoneda = Deposito::ObtenerDepositosPorMoneda($moneda,'./ArchivosJson/depositos.json');
                 
                 if($depositosMoneda !== null && !empty($depositosMoneda)) {
                     // echo "entra";
@@ -199,9 +199,9 @@
             echo "<br>faltan parametros.";
         }else {
             $nroDocumento = $_GET["nroDocumento"];
-            $cuentasJson = Cuenta::ObtenerCuentasPorDni($nroDocumento,"banco.json");
-            $depositos = Deposito::JsonDeserialize("depositos.json");
-            $retiros = Retiro::JsonDeserialize("retiro.json");
+            $cuentasJson = Cuenta::ObtenerCuentasPorDni($nroDocumento,'./ArchivosJson/banco.json');
+            $depositos = Deposito::JsonDeserialize('./ArchivosJson/depositos.json');
+            $retiros = Retiro::JsonDeserialize('./ArchivosJson/retiro.json');
             
             // var_dump($cuentasJson);
 
@@ -223,10 +223,10 @@
                             }    
                         }
                         if(!$banderaCuentas){
-                            echo "<br>la cuenta " . $cuenta->GetNroCuenta() . "no tiene depositos ni retiros";
+                            echo "<br>la cuenta nro: " . $cuenta->GetNroCuenta() . " no tiene depositos ni retiros";
                         }
                     }else{
-                        echo "<br>la cuenta". $cuenta->GetNroCuenta() . "esta inactiva<br>";
+                        echo "<br>la cuenta nro: ". $cuenta->GetNroCuenta() . " esta inactiva<br>";
                     }
                 }
             }

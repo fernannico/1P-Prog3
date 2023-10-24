@@ -1,5 +1,7 @@
 <?php
-    include_once("Cuenta.php");
+    include_once "./Clases/Cuenta.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
+
     echo "<br>BORRAR CUENTA<br>";
 
     // 9- BorrarCuenta.php (por DELETE), debe recibir el tipo y número de cuenta y debe realizar la baja de la cuenta (soft-delete, no físicamente) y la foto relacionada a esa venta debe moverse a la carpeta /ImagenesBackupCuentas/2023.
@@ -21,14 +23,14 @@
         }
         $nroCuenta = $putData["nroCuenta"];
 
-        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($nroCuenta,"banco.json");
+        $cuentaJson = Cuenta::ObtenerCuentaPorNroCuenta($nroCuenta,$rutaBancoJson);
         if($cuentaJson !== null){
-            $cuentaJsonTipo = Cuenta::ValidarCuentaEnJson($cuentaJson->GetMoneda(),$tipoCuenta,$nroCuenta,'banco.json');
+            $cuentaJsonTipo = Cuenta::ValidarCuentaEnJson($cuentaJson->GetMoneda(),$tipoCuenta,$nroCuenta,$rutaBancoJson);
             // $cuentaJson->__toString();
             // var_dump($cuentaJson);
             if($cuentaJsonTipo !== null){
-                $cuentaJsonTipo->ModificarEstadoCuentaJson("inactivo","banco.json");
-                $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($cuentaJsonTipo->GetMoneda(),$cuentaJsonTipo->GetTipoCuenta(), $cuentaJsonTipo->GetNroCuenta(),"banco.json");
+                $cuentaJsonTipo->ModificarEstadoCuentaJson("inactivo",$rutaBancoJson);
+                $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($cuentaJsonTipo->GetMoneda(),$cuentaJsonTipo->GetTipoCuenta(), $cuentaJsonTipo->GetNroCuenta(),$rutaBancoJson);
                 if($cuentaJsonActualizada !== null){
                     // echo 'entra';
                     echo $cuentaJsonActualizada->__toString();

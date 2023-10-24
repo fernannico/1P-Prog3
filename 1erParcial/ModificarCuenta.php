@@ -1,5 +1,6 @@
 <?php
-    include_once("Cuenta.php");
+    include_once "./Clases/Cuenta.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
     // 5- ModificarCuenta.php (por PUT)
     // Debe recibir todos los datos propios de una cuenta (a excepción del saldo); si dicha cuenta existe (comparar por Tipo y Nro. de Cuenta) se modifica, de lo contrario informar que no existe esa cuenta.
     
@@ -27,7 +28,7 @@
             echo "tipo de cuenta incorrecto";
         }
 
-        $cuentaPorId = Cuenta::ObtenerCuentaPorNroCuenta($nroCuenta,"banco.json");
+        $cuentaPorId = Cuenta::ObtenerCuentaPorNroCuenta($nroCuenta,$rutaBancoJson);
         if($cuentaPorId == null){
             echo "<br>No existe esa cuenta con ese Id";
         }elseif($cuentaPorId->GetTipoCuenta() !== $tipoCuenta){
@@ -36,9 +37,9 @@
         }elseif($cuentaPorId !== null){
             echo "<br>Cuenta a modificar:<br>" . $cuentaPorId->__toString() ."<br>";
             $moneda = $cuentaPorId->GetMoneda();
-            if($cuentaPorId->ModificarCuentaJson($nombre,$apellido,$nroDocumento,$mail,"banco.json")){
+            if($cuentaPorId->ModificarCuentaJson($nombre,$apellido,$nroDocumento,$mail,$rutaBancoJson)){
                 echo "<br>Cuenta modificada en json";
-                $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,"banco.json");
+                $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,$rutaBancoJson);
                 if($cuentaJsonActualizada !== null)
                 echo "<br>Cuenta modificada: <br>" . $cuentaJsonActualizada->__toString();
             }else{

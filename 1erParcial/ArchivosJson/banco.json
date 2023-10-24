@@ -92,7 +92,7 @@
         "mail": "nico95@gmail.com",
         "tipoCuenta": "CC$",
         "moneda": "$",
-        "saldo": 11035,
+        "saldo": 11038,
         "estado": "activa"
     },
     {
@@ -128,7 +128,31 @@
         "mail": "nico95@gmail.com",
         "tipoCuenta": "CAU$S",
         "moneda": "U$S",
-        "saldo": 2500,
+        "saldo": 3500,
+        "estado": "inactivo"
+    },
+    {
+        "nroCuenta": 185705,
+        "nombre": "ramien",
+        "apellido": "fernandez",
+        "tipoDocumento": "dni",
+        "nroDocumento": "39267699",
+        "mail": "nico95@gmail.com",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "saldo": "1500",
+        "estado": "activa"
+    },
+    {
+        "nroCuenta": 474940,
+        "nombre": "nico90",
+        "apellido": "fernandez",
+        "tipoDocumento": "dni",
+        "nroDocumento": "3826990",
+        "mail": "nico9@gmail.com",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "saldo": "1500",
         "estado": "inactivo"
     }
 ]

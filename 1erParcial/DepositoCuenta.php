@@ -1,6 +1,8 @@
 <?php
-    include_once "Cuenta.php";
-    include_once "Deposito.php";
+    include_once "./Clases/Cuenta.php";
+    $rutaBancoJson = './ArchivosJson/banco.json';
+    $rutaDespositosJson = './ArchivosJson/depositos.json';
+    include_once "./Clases/Deposito.php";
     echo "DEPOSITO CUENTA: <BR>";
 
     // 3-
@@ -27,15 +29,15 @@
         }
 
         if($moneda !== null && $tipoCuenta !== null){
-            $cuentaJson = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,"banco.json");
+            $cuentaJson = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,$rutaBancoJson);
             if($cuentaJson !== null) {
-                if($cuentaJson->ActualizarSaldoCuentaJson($importe,"banco.json")){
-                    $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,"banco.json");
+                if($cuentaJson->ActualizarSaldoCuentaJson($importe,$rutaBancoJson)){
+                    $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,$rutaBancoJson);
                     // var_dump($cuentaJson->GetSaldo());
                     if($cuentaJsonActualizada !== null) {
                         $depositoNuevo = new Deposito(rand(1,10000),$nroCuenta,$tipoCuenta,$moneda,$importe);
                         $depositoNuevo->SetSaldo($cuentaJsonActualizada->GetSaldo());
-                        if(Deposito::GuardarDepositoJSON($depositoNuevo,"depositos.json") && $depositoNuevo->GuardarImagen($_FILES['imagen']['tmp_name'])) {
+                        if(Deposito::GuardarDepositoJSON($depositoNuevo,$rutaDespositosJson) && $depositoNuevo->GuardarImagen($_FILES['imagen']['tmp_name'])) {
                             echo "<br>Deposito realizado<br>";
                             echo "<br>Deposito<br>" . $depositoNuevo->__toString();
                         }else{
