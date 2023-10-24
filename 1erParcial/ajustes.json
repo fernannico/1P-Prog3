@@ -1,0 +1,23 @@
+[
+    {
+        "id": 7525,
+        "idCuenta": 409944,
+        "idOperacion": 7771,
+        "monto": "25",
+        "motivo": "saldo positivo"
+    },
+    {
+        "id": 357,
+        "idCuenta": 409944,
+        "idOperacion": 1538,
+        "monto": "25",
+        "motivo": "saldo positivo"
+    },
+    {
+        "id": 5862,
+        "idCuenta": 743081,
+        "idOperacion": 9174,
+        "monto": "100",
+        "motivo": "saldo positivo"
+    }
+]

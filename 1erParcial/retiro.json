@@ -1,0 +1,110 @@
+[
+    {
+        "id": 4721,
+        "fecha": "24-10-2023",
+        "nroCuenta": 409944,
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "importeRetirado": "5",
+        "saldo": 9495
+    },
+    {
+        "id": 6650,
+        "fecha": "24-10-2023",
+        "nroCuenta": 409944,
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "importeRetirado": "5",
+        "saldo": 9490
+    },
+    {
+        "id": 9703,
+        "fecha": "24-10-2023",
+        "nroCuenta": 409944,
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "importeRetirado": "5",
+        "saldo": 9485
+    },
+    {
+        "id": 8288,
+        "fecha": "24-10-2023",
+        "nroCuenta": 409944,
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "importeRetirado": "500",
+        "saldo": 8985
+    },
+    {
+        "id": 114,
+        "fecha": "24-10-2023",
+        "nroCuenta": 409944,
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "importeRetirado": "500",
+        "saldo": 8485
+    },
+    {
+        "id": 3509,
+        "fecha": "24-10-2023",
+        "nroCuenta": 802697,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 11000
+    },
+    {
+        "id": 1565,
+        "fecha": "24-10-2023",
+        "nroCuenta": 802697,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 10500
+    },
+    {
+        "id": 9384,
+        "fecha": "24-10-2023",
+        "nroCuenta": 802697,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 10000
+    },
+    {
+        "id": 6791,
+        "fecha": "24-10-2023",
+        "nroCuenta": 184092,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 4020
+    },
+    {
+        "id": 6846,
+        "fecha": "24-10-2023",
+        "nroCuenta": 184092,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 3520
+    },
+    {
+        "id": 7917,
+        "fecha": "24-10-2023",
+        "nroCuenta": 184092,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "500",
+        "saldo": 3020
+    },
+    {
+        "id": 9174,
+        "fecha": "24-10-2023",
+        "nroCuenta": 743081,
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "importeRetirado": "100",
+        "saldo": 2400
+    }
+]

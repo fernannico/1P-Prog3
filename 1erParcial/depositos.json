@@ -1,0 +1,101 @@
+[
+    {
+        "id": 2130,
+        "fecha": "15-10-2023",
+        "nroCuenta": "342713",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 9000
+    },
+    {
+        "id": 4376,
+        "fecha": "18-10-2023",
+        "nroCuenta": "342713",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 11500
+    },
+    {
+        "id": 9393,
+        "fecha": "20-10-2023",
+        "nroCuenta": "342713",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 14000
+    },
+    {
+        "id": 5310,
+        "fecha": "20-10-2023",
+        "nroCuenta": "802697",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 6500
+    },
+    {
+        "id": 7159,
+        "fecha": "21-10-2023",
+        "nroCuenta": "802697",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 9000
+    },
+    {
+        "id": 3376,
+        "fecha": "22-10-2023",
+        "nroCuenta": "802697",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "2500",
+        "saldo": 11500
+    },
+    {
+        "id": 9257,
+        "fecha": "22-10-2023",
+        "nroCuenta": "409944",
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "deposito": "2500",
+        "saldo": 4500
+    },
+    {
+        "id": 7771,
+        "fecha": "23-10-2023",
+        "nroCuenta": "409944",
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "deposito": "2500",
+        "saldo": 7000
+    },
+    {
+        "id": 1538,
+        "fecha": "24-10-2023",
+        "nroCuenta": "409944",
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "deposito": "2500",
+        "saldo": 9500
+    },
+    {
+        "id": 3378,
+        "fecha": "24-10-2023",
+        "nroCuenta": "409944",
+        "tipoCuenta": "CC$",
+        "moneda": "$",
+        "deposito": "2500",
+        "saldo": 11035
+    },
+    {
+        "id": 8712,
+        "fecha": "24-10-2023",
+        "nroCuenta": "743081",
+        "tipoCuenta": "CAU$S",
+        "moneda": "U$S",
+        "deposito": "1000",
+        "saldo": 2500
+    }
+]
