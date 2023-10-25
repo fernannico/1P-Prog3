@@ -1,5 +1,5 @@
 <?php
-    include_once "./Clases/Cuenta.php";
+    include_once "./Instancias/Cuenta.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
     // 5- ModificarCuenta.php (por PUT)
     // Debe recibir todos los datos propios de una cuenta (a excepción del saldo); si dicha cuenta existe (comparar por Tipo y Nro. de Cuenta) se modifica, de lo contrario informar que no existe esa cuenta.

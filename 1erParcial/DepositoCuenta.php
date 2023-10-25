@@ -1,8 +1,8 @@
 <?php
-    include_once "./Clases/Cuenta.php";
+    include_once "./Instancias/Cuenta.php";
+    include_once "./Instancias/Deposito.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
     $rutaDespositosJson = './ArchivosJson/depositos.json';
-    include_once "./Clases/Deposito.php";
     echo "DEPOSITO CUENTA: <BR>";
 
     // 3-

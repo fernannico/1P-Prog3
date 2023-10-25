@@ -1,8 +1,8 @@
 <?php
-    include_once "./Clases/Ajuste.php";
-    include_once "./Clases/Retiro.php";
-    include_once "./Clases/Cuenta.php";
-    include_once "./Clases/Deposito.php";
+    include_once "./Instancias/Ajuste.php";
+    include_once "./Instancias/Retiro.php";
+    include_once "./Instancias/Cuenta.php";
+    include_once "./Instancias/Deposito.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
     $rutaDespositosJson = './ArchivosJson/depositos.json';
     $rutaRetirosJson = './ArchivosJson/retiro.json';

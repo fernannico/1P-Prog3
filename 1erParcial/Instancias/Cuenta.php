@@ -92,7 +92,7 @@ class Cuenta implements JsonSerializable{
         $tipoCAUSD= "CAU" . "$" . "S";
         $tipoCCUSS= "CCU" . "$" . "S";
 
-        if(/*$tipo == "CC" || $tipo == "CA" ||*/ $tipo == "CA$" || $tipo == $tipoCAUSD || $tipo == "CC$" || $tipo == $tipoCCUSS || (!empty($tipo) && !trim($tipo) === "")) {
+        if($tipo == "CA$" || $tipo == $tipoCAUSD || $tipo == "CC$" || $tipo == $tipoCCUSS || (!empty($tipo) && !trim($tipo) === "")) {
             $retorno = true;
         }
 
@@ -104,6 +104,23 @@ class Cuenta implements JsonSerializable{
 
         if($moneda == "$" || $moneda == $dolar || (!empty($moneda) && !trim($moneda) === "")) {
             $retorno = true;
+        }
+
+        return $retorno;
+    }
+
+    public static function ValidarTipoCuentaConMoneda($tipoCuenta,$moneda) {
+        $retorno = false;
+        $dolar = "U" . "$" . "S";
+        $tipoCAUSS= "CAU" . "$" . "S";
+        $tipoCCUSS= "CCU" . "$" . "S";
+
+        if(Cuenta::ValidarTipoCuenta($tipoCuenta) && Cuenta::ValidarMoneda($moneda) ) {
+            if($moneda == "$" && ($tipoCuenta == "CA$" || $tipoCuenta == "CC$")){
+                $retorno = true;
+            }elseif($moneda == $dolar && ($tipoCuenta == $tipoCAUSS || $tipoCuenta == $tipoCCUSS)){
+                $retorno = true;
+            }
         }
 
         return $retorno;
@@ -205,6 +222,40 @@ class Cuenta implements JsonSerializable{
         }
         return $existe;
     }
+
+    //"ya existe ese DNI y pero con otro nombre!"
+    public static function ValidarUsuarioEnJson($nroDocumento,$nombre,$apellido,$rutaArchivoJson){
+        $usuarioValido = false;
+        // $cuentasCargadas = Cuenta::JsonDeserialize($rutaArchivoJson);
+
+        $cuentaPorDni = Cuenta::ValidarDniEnJson($nroDocumento,$rutaArchivoJson);
+
+        if($cuentaPorDni == null){
+            $usuarioValido = true;// El DNI no existe en el archivo JSON-> cualquier nombre y apellido .
+        }else{
+            if ($cuentaPorDni->GetNombre() == $nombre && $cuentaPorDni->GetApellido() == $apellido) {
+                $usuarioValido = true; // El nombre y apellido coinciden.
+            } else {
+                $usuarioValido =  false; // El nombre y apellido no coinciden con el dni!.
+            }    
+        }
+        return $usuarioValido;
+    }
+
+    public static function ValidarDniEnJson($numDni, $rutaArchivoJson){ 
+        $existe = null;
+
+        $cuentasCargadas = Cuenta::JsonDeserialize($rutaArchivoJson);
+        
+        foreach($cuentasCargadas as $cuenta){
+            if($cuenta->GetNroDocumento() == $numDni){
+                $existe = $cuenta;
+                break;
+            }
+        }
+
+        return $existe;
+    }
     public static function ValidarNroCuentaEnJson($nroCuenta,$rutaArchivoJson){
         
         $existe = null;
@@ -266,13 +317,13 @@ class Cuenta implements JsonSerializable{
         return $retorno;
     }
 
-    public function GuardarImagen() {
+    public function GuardarImagen($nombreImagen,$directorioDestino) {
         $retorno = false;
-        $carpeta_archivos = "ImagenesDeCuentas/2023/";
+        $carpeta_archivos = $directorioDestino;
         $nombre_archivo = $this->GetNroCuenta() . $this->GetTipoCuenta() . ".jpg";       
         $ruta_destino = $carpeta_archivos . $nombre_archivo;
 
-        if (move_uploaded_file($_FILES['imagen']['tmp_name'],  $ruta_destino)){
+        if (move_uploaded_file($nombreImagen,  $ruta_destino)){
             $retorno = true;
         }     
         return $retorno;

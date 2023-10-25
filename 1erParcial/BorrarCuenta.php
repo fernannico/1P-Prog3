@@ -1,5 +1,5 @@
 <?php
-    include_once "./Clases/Cuenta.php";
+    include_once "./Instancias/Cuenta.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
 
     echo "<br>BORRAR CUENTA<br>";

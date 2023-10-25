@@ -1,7 +1,7 @@
 <?php
     echo "RETIRO CUENTA";
-    include_once "./Clases/Cuenta.php";
-    include_once "./Clases/Deposito.php";
+    include_once "./Instancias/Cuenta.php";
+    include_once "./Instancias/Deposito.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
     $rutaRetirosJson = './ArchivosJson/retiro.json';
 

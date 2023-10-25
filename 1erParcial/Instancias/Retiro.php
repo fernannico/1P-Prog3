@@ -1,6 +1,6 @@
 <?php
 
-    include_once("Cuenta.php");
+    // include_once("Cuenta.php");
 
     class Retiro implements JsonSerializable{
         private $_IdRetiro;
