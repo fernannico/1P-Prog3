@@ -349,7 +349,7 @@ class Cuenta implements JsonSerializable{
                 if (rename($rutaOrigen, $rutaDestino)) {
                     $retorno = true;
                 }
-            } catch (\Throwable $th) {
+            } finally {
                 // Manejar la excepción si ocurre algún error al mover el archivo
                 $retorno = false;
             }
