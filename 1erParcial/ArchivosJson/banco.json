@@ -21,7 +21,7 @@
         "tipoCuenta": "CAU$S",
         "moneda": "U$S",
         "saldo": 3020,
-        "estado": "activa"
+        "estado": "inactivo"
     },
     {
         "nroCuenta": 345067,

@@ -336,9 +336,25 @@ class Cuenta implements JsonSerializable{
         $rutaOrigen = $carpetaOrigen . $nombreImagen;
         $rutaDestino = $carpetaDestino . $nombreImagen;
         
-        if (rename($rutaOrigen, $rutaDestino)) {
-           $retorno = true;
+        // try {
+        //     //code...
+        //     if (rename($rutaOrigen, $rutaDestino)) {
+        //        $retorno = true;
+        //     }
+        // }finally {
+        //     $retorno = false;
+        // }
+        if (file_exists($rutaOrigen)) {
+            try {
+                if (rename($rutaOrigen, $rutaDestino)) {
+                    $retorno = true;
+                }
+            } catch (\Throwable $th) {
+                // Manejar la excepción si ocurre algún error al mover el archivo
+                $retorno = false;
+            }
         }
+    
         return $retorno;
     }
 

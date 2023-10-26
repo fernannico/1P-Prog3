@@ -1,6 +1,8 @@
 <?php
     include_once "./Instancias/Cuenta.php";
     $rutaBancoJson = './ArchivosJson/banco.json';
+    $carpetaOrigen = "ImagenesDeCuentas/2023/";
+    $carpetaDestino = "ImagenesBackupCuentas/2023/";
 
     echo "<br>BORRAR CUENTA<br>";
 
@@ -29,21 +31,24 @@
             // $cuentaJson->__toString();
             // var_dump($cuentaJson);
             if($cuentaJsonTipo !== null){
-                $cuentaJsonTipo->ModificarEstadoCuentaJson("inactivo",$rutaBancoJson);
-                $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($cuentaJsonTipo->GetMoneda(),$cuentaJsonTipo->GetTipoCuenta(), $cuentaJsonTipo->GetNroCuenta(),$rutaBancoJson);
-                if($cuentaJsonActualizada !== null){
-                    // echo 'entra';
-                    echo $cuentaJsonActualizada->__toString();
-                    // var_dump($cuentaJsonActualizada);
-                    $nombreArchivo = $cuentaJsonActualizada->GetNroCuenta() . $cuentaJsonActualizada->GetTipoCuenta() . ".jpg";;
-                    $carpetaOrigen = "ImagenesDeCuentas/2023/";
-                    $carpetaDestino = "ImagenesBackupCuentas/2023/";
+                if($cuentaJsonTipo->GetEstado() == "activo"){
+                    $nombreArchivo = $cuentaJsonTipo->GetNroCuenta() . $cuentaJsonTipo->GetTipoCuenta() . ".jpg";
                     // $ruta_destino = $carpeta_archivos . $nombre_archivo;
                     if(Cuenta::MoverImagen($nombreArchivo,$carpetaOrigen,$carpetaDestino)) {
-                        echo "<br>Imagen movida a la carpeta " .$carpetaDestino ;
+                        $cuentaJsonTipo->ModificarEstadoCuentaJson("inactivo",$rutaBancoJson);
+                        $cuentaJsonActualizada = Cuenta::ValidarCuentaEnJson($cuentaJsonTipo->GetMoneda(),$cuentaJsonTipo->GetTipoCuenta(), $cuentaJsonTipo->GetNroCuenta(),$rutaBancoJson);
+                        if($cuentaJsonActualizada !== null){
+                            // echo 'entra';
+                            echo $cuentaJsonActualizada->__toString();
+                            echo "<br>Imagen movida a la carpeta " .$carpetaDestino ;
+                            // var_dump($cuentaJsonActualizada);
+                        }
                     }else{
-                        echo "<br>imagen no movida";
+                        echo "<br>imagen no movida, no se encuentra en " . $carpetaOrigen;
+                        echo "<br>Usuario no dado de baja";
                     }
+                }else{
+                    echo "el usuario ya se encuentra inactivo";
                 }
             }else{
                 echo 'La cuenta existe pero no es de ese tipo';
