@@ -185,7 +185,46 @@
     
             return $depositos;
         }
+        public static function CalcularDepositosPorTipoYFecha($tipoCuenta,$moneda,$fecha,$rutaArchivoJson) {
 
+            $totalDepositado= 0;
+            $depositosJson = Deposito::JsonDeserialize($rutaArchivoJson);
+    
+            foreach($depositosJson as $deposito){
+    
+                if($deposito->GetTipoCuenta() == $tipoCuenta && $deposito->GetMoneda() == $moneda && $deposito->GetFecha() == $fecha) {
+                    echo "<BR>ID: " . $deposito->GetId() . " - Deposito:" . $deposito->GetDeposito() . " - Fecha:" . $deposito->GetFecha();
+                    $totalDepositado += $deposito->GetDeposito();
+                }
+            }
+            return $totalDepositado;
+        }
+
+        public static function ObtenerDepositosPorDni($nroDocumento,$rutaCuentasJson,$rutaDespositosJson){
+            $depositos = Array();
+            $cuentasUsuario = Cuenta::ObtenerCuentasPorDni($nroDocumento,$rutaCuentasJson);
+            $depositosJson = Deposito::JsonDeserialize($rutaDespositosJson);
+    
+            if($cuentasUsuario !== null && !empty($cuentasUsuario)) {
+                if($depositosJson !== null && !empty($depositosJson)) {
+                    // $banderaDepositos = false;
+                    foreach($cuentasUsuario as $cuenta){         //hasta aca tengo las cuentas, pero necesito los depositos
+                        foreach($depositosJson as $deposito){
+                            if($cuenta->GetNroCuenta() == $deposito->GetNroCuenta()) {
+                                $depositos[] = $deposito;
+                            }
+                        }
+                    }
+                }else {
+                    echo "<br>No hay depositos";
+                }
+            } else {
+                echo "<br>No existe ese usuario";
+            }
+            return $depositos;
+        }
+    
+    
         public static function CompararPorNumeroDeCuenta($a, $b){
             return $a->GetNroCuenta() > $b->GetNroCuenta();
         }

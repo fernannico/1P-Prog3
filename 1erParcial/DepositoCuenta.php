@@ -13,9 +13,14 @@
 
     if(isset($_POST["nroCuenta"]) && isset($_POST["tipoCuenta"]) && isset($_POST["importe"]) && isset($_POST["moneda"]) && isset($_FILES["imagen"])) {
         $nroCuenta = $_POST["nroCuenta"];
-        $importe = $_POST["importe"];
         $tipoCuenta= null;
         $moneda = null;
+        $importe = null;
+        if($_POST["importe"] > 0){
+            $importe = $_POST["importe"];
+        }else{
+            echo "<br>Ingrese un importe a depositar mayor a 0";
+        }
 
         if(Cuenta::ValidarTipoCuenta($_POST["tipoCuenta"])){
             $tipoCuenta = $_POST["tipoCuenta"];
@@ -28,7 +33,7 @@
             echo "moneda ingresada incorrecta";
         }
 
-        if($moneda !== null && $tipoCuenta !== null){
+        if($moneda !== null && $tipoCuenta !== null && $importe !== null){
             $cuentaJson = Cuenta::ValidarCuentaEnJson($moneda,$tipoCuenta, $nroCuenta,$rutaBancoJson);
             if($cuentaJson !== null) {
                 if($cuentaJson->ActualizarSaldoCuentaJson($importe,$rutaBancoJson)){

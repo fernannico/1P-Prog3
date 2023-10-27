@@ -63,7 +63,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br>totalDepositado<br>porUsuario<br>entreFechas<br>tipoDeCuenta<br>moneda<br>operacionesUsuario";
             break;    
         }
-    } 
+    }elseif (isset($_GET['consultarRetiros'])) {
+        # code 10
+        include_once "ConsultaMovimientos.php";        
+
+        switch ($_GET['consultarRetiros']) {
+            case 'totalRetirado':
+                ConsultarTotalRetirado();
+                break;
+            case 'porUsuario':
+                consultarRetirosPorUsuario();
+                break;
+            case 'entreFechas':
+                consultarRetirosEntreFechas();
+                break;
+            case 'tipoDeCuenta':
+                consultarRetirosPorTipoCuenta();
+                break;
+            case 'moneda':
+                consultarRetirosPorMoneda();
+                break;
+            case 'operacionesUsuario':
+                consultarOperacionesPorUsuario();
+                break;    
+            default:
+            echo "la accion no se encuentra entre las opciones. Indicar si la consulta de Retiro es:<br>
+            <br>totalRetirado<br>porUsuario<br>entreFechas<br>tipoDeCuenta<br>moneda<br>operacionesUsuario";
+            break;    
+        }
+    }
 } else if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     if (isset($_GET['accion'])) {

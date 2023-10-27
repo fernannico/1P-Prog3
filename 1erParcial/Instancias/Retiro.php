@@ -120,6 +120,109 @@
             }        
             return $retiroJson;
         }
+
+        public static function CalcularRetirosPorTipoYFecha($tipoCuenta,$moneda,$fecha,$rutaArchivoJson) {
+
+            $totalRetirado= 0;
+            $RetirosJson = Retiro::JsonDeserialize($rutaArchivoJson);
+    
+            foreach($RetirosJson as $Retiro){
+    
+                if($Retiro->GetTipoCuenta() == $tipoCuenta && $Retiro->GetMoneda() == $moneda && $Retiro->GetFecha() == $fecha) {
+                    echo "<BR>ID: " . $Retiro->GetId() . " - Retiro:" . $Retiro->GetImporteRetirado() . " - Fecha:" . $Retiro->GetFecha();
+                    $totalRetirado += $Retiro->GetImporteRetirado();
+                }
+            }
+            return $totalRetirado;
+        }
+
+        public static function ObtenerRetirosPorDni($nroDocumento,$rutaCuentasJson,$rutaRetirosJson){
+            $Retiros = Array();
+            $cuentasUsuario = Cuenta::ObtenerCuentasPorDni($nroDocumento,$rutaCuentasJson);
+            $RetirosJson = Retiro::JsonDeserialize($rutaRetirosJson);
+    
+            if($cuentasUsuario !== null && !empty($cuentasUsuario)) {
+                if($RetirosJson !== null && !empty($RetirosJson)) {
+                    // $banderaRetiros = false;
+                    foreach($cuentasUsuario as $cuenta){         //hasta aca tengo las cuentas, pero necesito los Retiros
+                        foreach($RetirosJson as $Retiro){
+                            if($cuenta->GetNroCuenta() == $Retiro->GetNroCuenta()) {
+                                $Retiros[] = $Retiro;
+                            }
+                        }
+                    }
+                }else {
+                    echo "<br>No hay Retiros";
+                }
+            } else {
+                echo "<br>No existe ese usuario";
+            }
+            return $Retiros;
+        }
+    
+        public static function ObtenerConjuntoFechas($fechaInicio, $fechaFin) {
+            $fechas = Array();
+        
+            $fechaActual = strtotime($fechaInicio);
+        
+            while ($fechaActual <= strtotime($fechaFin)) {
+                $fechas[] = date("d-m-Y", $fechaActual);
+                $fechaActual = strtotime("+1 day", $fechaActual);
+            }
+        
+            return $fechas;
+        }
+    
+        public static function ObtenerRetirosEntreFechas($fechaInicio, $fechaFin,$rutaArchivoJson) {
+            $retirosEntreFechas = Array();
+            $fechas = retiro::ObtenerConjuntoFechas($fechaInicio,$fechaFin);
+            $retirosJson = retiro::JsonDeserialize($rutaArchivoJson);
+    
+            if($fechas !== null && $retirosJson !== null && !empty($retirosJson)){
+                foreach($fechas as $fecha){
+                    foreach($retirosJson as $retiro){
+                        if($retiro->GetFecha() == $fecha){
+                            $retirosEntreFechas[] = $retiro;
+                        }
+                    }
+                }
+            }
+    
+            return $retirosEntreFechas;
+        }
+    
+        public static function CompararPorNumeroDeCuenta($a, $b){
+            return $a->GetNroCuenta() > $b->GetNroCuenta();
+        }
+        public static function OrdenarRetirosPorNumeroCuenta($Retiros){
+            usort($Retiros, 'Retiro::CompararPorNumeroDeCuenta');
+            return $Retiros;
+        }
+        public static function ObtenerRetirosPorTipoCuenta($tipoCuenta, $rutaArchivoJson) {
+            $Retiros = Array();
+            $RetirosJson = Retiro::JsonDeserialize($rutaArchivoJson);
+            
+            foreach($RetirosJson as $Retiro){
+                // echo $Retiro->__toString()."<br>";
+                if($Retiro->GetTipoCuenta() == $tipoCuenta) {
+                    $Retiros[] = $Retiro;
+                }
+            }
+    
+            return $Retiros;
+        }
+        public static function ObtenerRetirosPorMoneda($moneda, $rutaArchivoJson){
+            $Retiros = Array();
+            $RetirosJson = Retiro::JsonDeserialize($rutaArchivoJson);
+            
+            foreach($RetirosJson as $Retiro){
+                if($Retiro->GetMoneda() == $moneda) {
+                    $Retiros[] = $Retiro;
+                }
+            }
+    
+            return $Retiros;
+        }
     }
 
 ?>
